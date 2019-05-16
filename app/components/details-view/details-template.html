@@ -1,0 +1,34 @@
+
+<div class="wrap-all">
+    <div class='growl' growl></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1"></div> <!-- zwężenie całego widoku -->
+            <div class="col-md-10">
+                <div class="row row-details">
+                    <div class="col-md-10">
+                        <h2>Użytkownik: {{empInfo.NAME}}</h2>
+                    </div>
+                    <div class="col-md-2">
+                        <h2>
+                            <button ng-click="logout()" class="btn btn logout-btn btn-primary">Wyloguj</button>
+                        </h2>
+                    </div>
+                </div>
+                <current-date></current-date> <!-- directive with date -->
+                <ul>
+                    <li ng-repeat="pass in passwords">{{pass.SITE}} 
+                        <span ng-click="showPassword(pass)" class='glyphicon glyphicon-eye-open' data-toggle='tooltip'title="Kliknij aby zobaczyć!">
+                            <p ng-show="pass.visible">{{pass.PASS}}</p>
+                        </span>
+                    </li>
+                </ul>
+
+                
+                
+                
+            </div>
+            <div class="col-md-1"></div> <!-- zwężenie całego widoku -->
+        </div>
+    </div>
+</div>

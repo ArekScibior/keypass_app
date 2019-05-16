@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- build:css styles/main.min.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../bower_components/jquery-ui/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="../bower_components/angular-ui-grid/ui-grid.css" />
+    <link rel="stylesheet" href="../bower_components/angular-growl-v2/build/angular-growl.css" />
+    <!-- endbower -->
+    <!-- begin:css -->
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+<!-- end:css -->
+        <!-- endbuild -->
+    <title>App</title>
+</head>
+<body ng-app="app" ng-controller="spinnerController">
+    <div class="spinner-pane" ng-if="spinner.counter">
+        <div class="spinner-text">Proszę czekać...</div>
+        <span us-spinner></span>
+    </div>
+    <div ng-view=""></div>
+        
+
+        <!-- build:js scripts/vendor.min.js -->
+        <!-- bower:js -->
+        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../bower_components/json3/lib/json3.js"></script>
+        <script src="../bower_components/es5-shim/es5-shim.js"></script>
+        <script src="../bower_components/angular-resource/angular-resource.js"></script>
+        <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="../bower_components/angular-animate/angular-animate.js"></script>
+        <script src="../bower_components/angular-touch/angular-touch.js"></script>
+        <script src="../bower_components/angular-route/angular-route.js"></script>
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
+        <script src="../bower_components/spin.js/spin.js"></script>
+        <script src="../bower_components/angular-spinner/angular-spinner.js"></script>
+        <script src="../bower_components/angular-ui-grid/ui-grid.js"></script>
+        <script src="../bower_components/underscore/underscore.js"></script>
+        <script src="../bower_components/moment/moment.js"></script>
+        <script src="../bower_components/moment/locale/pl.js"></script>
+        <script src="../bower_components/angular-growl-v2/build/angular-growl.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+        
+        <!-- build:js scripts/scripts.min.js -->
+        <!-- begin:js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/helper.jquery.js"></script>
+<script src="scripts/init.js"></script>
+<script src="scripts/spinner-controller.js"></script>
+<script src="scripts/spinnerDirective.js"></script>
+<script src="components/common/services/dataprovider.js"></script>
+<script src="components/common/services/focus-me.js"></script>
+<script src="components/common/services/modalServices/modal-alert.js"></script>
+<script src="components/common/services/modalServices/modal-confirm.js"></script>
+<script src="components/common/services/spinner.js"></script>
+<script src="components/common/services/utils.js"></script>
+<script src="components/common/time/time.js"></script>
+<script src="components/details-view/detailsController.js"></script>
+<script src="components/login-view/loginController.js"></script>
+<!-- end:js -->
+        <!-- endbuild -->
+
+<script>
+          window.onunload = function () {
+            var request = new XMLHttpRequest();
+            request.open('POST', serverUrl, false);  // `false` makes the request synchronous
+            request.send(null);
+          }
+    </script>      
+</body>
+
+</html>
