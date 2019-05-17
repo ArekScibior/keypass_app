@@ -6,38 +6,26 @@
         <div class="wrap-all col-md-6">
             <div class='growl' growl></div>
             <div class="container-fluid" style="height: 100%; display:flex; flex-direction: column; justify-content: center;">
-                <!-- <div class="row text-center title">
-                    <div class="col-md-4">
-                        <h1>SignUp</h1>
+                <div ng-if='showLogIn'>
+                    <div class="row text-center title" style="text-align: center;">
+                        <h3 style="color: #fff;font-family: 'Merriweather', serif;">Log In</h3>
                     </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-4">
-                        <input class="form-control input-sm" type="text" ng-model="registerName" placeholder="Nick"> 
-                        <input class="form-control input-sm" type="password" ng-model="registerPass" placeholder="Hasło">
+                    
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <label style="color: #fff;" class="control-label">Login: </label>
+                        </div>
+                        <div class="col-md-8">
+                            <form ng-submit="login()">
+                                <div class="custom-input-group">
+                                    <input class="custom-input" type="text" ng-model="userName"> 
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <button class="btn btn-primary btn-sm" ng-click="register()">Zarejestruj się!</button>
-                </div> -->
-                
-                <div class="row text-center title" style="text-align: center;">
-                    <h3 style="color: #fff;font-family: 'Merriweather', serif;">Log In</h3>
-                </div>
-                
-                <div class="row text-center">
-                    <div class="col-md-2">
-                        <label style="color: #fff;" class="control-label">Login: </label>
-                    </div>
-                    <div class="col-md-8">
-                        <form ng-submit="login()">
-                            <div class="custom-input-group">
-                                <input class="custom-input" type="text" ng-model="userName"> 
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row text-center">
-                        <div class="col-md-2">
-                            <label style="color: #fff;" class="control-label">Hasło: </label>
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <label style="color: #fff;" class="control-label">Password: </label>
                         </div>
                         <div class="col-md-8">
                             <form ng-submit="login()">
@@ -47,13 +35,54 @@
                             </form>
                         </div>
                     </div>
+                </div>
+                <div ng-if='!showLogIn'>
+                    <div class="row text-center title" style="text-align: center;">
+                        <h3 style="color: #fff;font-family: 'Merriweather', serif;">Sign Up</h3>
+                    </div>
+                    
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <label style="color: #fff;" class="control-label">Login: </label>
+                        </div>
+                        <div class="col-md-8">
+                            <form ng-submit="login()">
+                                <div class="custom-input-group">
+                                    <input class="custom-input" type="text" ng-model="registerName"> 
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <label style="color: #fff;" class="control-label">Password: </label>
+                        </div>
+                        <div class="col-md-8">
+                            <form ng-submit="login()">
+                                <div class="custom-input-group">
+                                    <input class="custom-input" type="password" ng-model="registerPass"> 
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-3">
+                            <label style="color: #fff;" class="control-label">Repeat Password: </label>
+                        </div>
+                        <div class="col-md-8">
+                            <form ng-submit="login()">
+                                <div class="custom-input-group">
+                                    <input class="custom-input" type="password" ng-model="registerPassRepeat"> 
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <div class="row" style="display: flex; justify-content: space-between;">
                     <div class="col-md-4">
-                        <button type="button" ng-click="registerModal()" class="btn btn-login-ok">SignUp</button>
+                        <button type="button" ng-click="register(showLogIn);" class="btn btn-login-ok">SignUp</button>
                         
                     </div>
                     <div class="col-md-4">
-                        <button type="button" ng-click="login()" class="btn btn-login-ok">LogIn</button>
+                        <button type="button" ng-click="login(showLogIn);" class="btn btn-login-ok">LogIn</button>
                     </div>
                 </div>
             </div> 

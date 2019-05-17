@@ -6,13 +6,20 @@ app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", 
         $scope.userPassword = "";
         $scope.registerName = "";
         $scope.registerPass = "";
-
-        $scope.register = function () {
+        $scope.registerPassRepeat = "";
+        $scope.showLogIn = true;
+        
+        $scope.register = function (showLogIn) {
+            if(showLogIn) {
+                $scope.showLogIn = false
+                return;
+            }
             spinnerService.show();
             var payload = {
                 NAME: $scope.registerName,
                 PASSWORD: $scope.registerPass
             }
+
             dataprovider.registerUser(payload).then(function (response) {
                 if (response.data.ET_RETURN.TYPE !== "E") {
                     spinnerService.hide();
@@ -25,7 +32,12 @@ app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", 
             })
         }
 
-        $scope.login = function () {
+        $scope.login = function (showLogIn) {
+            console.log(showLogIn)
+            if(!showLogIn) {
+                $scope.showLogIn = true
+                return;
+            }
             console.log('loging..')
             spinnerService.show();
             var payload = {
