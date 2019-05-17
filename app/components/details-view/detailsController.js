@@ -27,7 +27,44 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 				clearInterval(idleInterval)
 			}
 		}
-		var ctrl = function() {
+		var ctrl = function ($scope, userName) {
+			$scope.newPassword = '';
+			$scope.newName = ""
+
+			var clearInputs = function () {
+				$scope.newPassword = '';
+				$scope.newName = ""
+			}
+
+			$scope.send = function () {
+				spinnerService.show();
+				var payload = {
+					IS_LOGIN: {
+						NAME: userName.NAME
+					},
+					SITE: $scope.newName,
+					PASSWORD: $scope.newPassword
+				}
+				
+				dataprovider.saveCardData(payload).then(function success(response) {
+					if (response.data.ET_RETURN) {
+						if (utils.checkReturn(response.data.ET_RETURN)) {
+							spinnerService.hide();
+							setTimeout(function () {
+								growl.success(response.data.ET_RETURN.MSGTX)
+							})
+							clearInputs();
+						} else {
+							spinnerService.hide();
+							growl.error(response.data.ET_RETURN.MSGTX)
+						}
+					} else {
+						spinnerService.hide();
+						growl.error('Wystapił nieoczekiwany błąd.')
+						return;
+					}
+				})
+			}
 
 		}
 		var modalOptions = {
@@ -35,35 +72,14 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 			windowClass: 'app-modal-window',
 			controller: ctrl,
 			keyboard: false,
-			backdrop: 'static'
+			backdrop: 'static',
+			resolve: {
+				userName : function (){ return $scope.empInfo }
+			}
 		};
 		
 		$scope.addModal = function() {
 			return $uibModal.open(modalOptions).result;
-		}
-
-		$scope.send = function () {
-			spinnerService.show();
-			var payload = {SITE: $scope.name, PASS: $scope.pass, PERNR: $scope.empInfo.PERNR}
-
-			dataprovider.saveCardData(payload).then(function success(response) {
-				if (response.data.ET_RETURN) {
-					if (utils.checkReturn(response.data.ET_RETURN)) {
-						spinnerService.hide();
-						setTimeout(function () {
-							growl.success(response.data.ET_RETURN.MSGTX)
-						})
-						$scope.clearInput();
-					} else {
-						spinnerService.hide();
-						growl.error(response.data.ET_RETURN.MSGTX)
-					}
-				} else {
-					spinnerService.hide();
-					growl.error('Wystapił nieoczekiwany błąd.')
-					return;
-				}
-			})
 		}
 
 		$scope.clearInput = function () {
