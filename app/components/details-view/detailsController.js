@@ -5,14 +5,9 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 		if (!utils.checkLogin()) return; // przerwanie jeżeli nie jestem zalogowany
 		var idleTime = 0;
 		var response = utils.getData('response');
-		console.log(response)
 		$scope.empInfo = response[0].ES_HEADER;
-		console.log($scope.empInfo)
 		$scope.passwords = response[0].PASSWORDS;
-		
-		$("#detailsInput").focusout(function () {
-			$scope.focusInput = true;
-		});
+		$scope.index = 0;
 
 		//Increment the idle time counter every minute.
 		var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
@@ -32,14 +27,20 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 				clearInterval(idleInterval)
 			}
 		}
+		var ctrl = function() {
 
-		$scope.showPassword = function(pass) {
-			pass.visibile = true;
 		}
-
-		_.each($scope.passwords, function(el) {
-			el.visibile = false;
-		})
+		var modalOptions = {
+			templateUrl: 'components/details-view/addEntry.html',
+			windowClass: 'app-modal-window',
+			controller: ctrl,
+			keyboard: false,
+			backdrop: 'static'
+		};
+		
+		$scope.addModal = function() {
+			return $uibModal.open(modalOptions).result;
+		}
 
 		$scope.send = function () {
 			spinnerService.show();

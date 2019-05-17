@@ -1,0 +1,37 @@
+<div class="own-modal travel xss" draggablemodal>
+
+    <div class="modal-header own-modal-header">
+        <span>Dodaj nowy wpis</span>
+    </div>
+    <div class="modal-body">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <label style="color: #000;" class="control-label">Name: </label>
+            </div>
+            <div class="col-md-8">
+                <form ng-submit="login(showLogIn)">
+                    <div class="custom-input-group">
+                        <input class="custom-input" type="text" ng-model="newName"> 
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-3">
+                <label style="color: #000;" class="control-label">Password: </label>
+            </div>
+            <div class="col-md-8">
+                <form ng-submit="login(showLogIn)">
+                    <div class="custom-input-group">
+                        <input class="custom-input" type="password" ng-model="newPassword"> 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button style="border-radius: 0;" class="btn btn-success" ng-click="close()"><span>Dodaj</span></button>
+        <button style="border-radius: 0;" class="btn btn-warning" ng-click="$dismiss()"><span>Zamknij</span></button>
+    </div>
+
+</div>
