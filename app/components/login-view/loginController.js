@@ -12,6 +12,7 @@ app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", 
         $scope.register = function (showLogIn) {
             if(showLogIn) {
                 $scope.showLogIn = false
+                clearInputLogin();
                 return;
             }
             spinnerService.show();
@@ -43,6 +44,7 @@ app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", 
         $scope.login = function (showLogIn) {
             if(!showLogIn) {
                 $scope.showLogIn = true
+                clearInputRegister();
                 return;
             }
             console.log('loging..')
@@ -93,7 +95,7 @@ app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", 
             })
         }
 
-        $scope.clearInputLogin = function () {
+        var clearInputLogin = function () {
             $scope.userName = "";
             $scope.userPassword = "";
         }

@@ -28,7 +28,7 @@
                             <label style="color: #fff;" class="control-label">Password: </label>
                         </div>
                         <div class="col-md-8">
-                            <form ng-submit="login()">
+                            <form ng-submit="login(showLogIn)">
                                 <div class="custom-input-group">
                                     <input class="custom-input" type="password" ng-model="userPassword"> 
                                 </div>
@@ -58,7 +58,7 @@
                             <label style="color: #fff;" class="control-label">Password: </label>
                         </div>
                         <div class="col-md-8">
-                            <form>
+                            <form ng-submit="register(showLogIn);">
                                 <div class="custom-input-group">
                                     <input class="custom-input" type="password" ng-model="registerPass"> 
                                 </div>
@@ -68,7 +68,7 @@
                             <label style="color: #fff;" class="control-label">Confirm Password: </label>
                         </div>
                         <div class="col-md-8">
-                            <form>
+                            <form ng-submit="register(showLogIn);">
                                 <div class="custom-input-group">
                                     <input class="custom-input" type="password" ng-model="registerPassRepeat"> 
                                 </div>
