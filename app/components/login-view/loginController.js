@@ -46,6 +46,14 @@ app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", 
                 return;
             }
             console.log('loging..')
+
+            var validLogin = validator.validateLogin({
+                name: $scope.userName,
+                pass: $scope.userPassword,
+            })
+
+            if (!validLogin) return;
+
             spinnerService.show();
             var payload = {
                 IS_LOGIN: {
