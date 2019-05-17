@@ -12,7 +12,6 @@ npm-debug.log
 *~
 node_modules
 nodeserver
-*.json
 /nbproject/private/
 nbproject
 *.ear
