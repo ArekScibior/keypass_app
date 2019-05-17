@@ -1,5 +1,5 @@
-app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", "modalAlert", "dataprovider", "utils", "spinnerService", "$routeParams",
-    function ($uibModal, $scope, $location, growl, modalAlert, dataprovider, utils, spinnerService, $routeParams) {
+app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", "modalAlert", "dataprovider", "utils", "spinnerService", "$routeParams", 'validator',
+    function ($uibModal, $scope, $location, growl, modalAlert, dataprovider, utils, spinnerService, $routeParams, validator) {
 
 
         $scope.userName = "";
@@ -15,13 +15,21 @@ app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", 
                 return;
             }
             spinnerService.show();
+            var validRegister = validator.validateRegister({
+                pass: $scope.registerPass,
+                confirmPass: $scope.registerPassRepeat,
+                name: $scope.registerName
+            })
+
+            if (!validRegister) return
+
             var payload = {
                 NAME: $scope.registerName,
                 PASSWORD: $scope.registerPass
             }
 
             dataprovider.registerUser(payload).then(function (response) {
-                if (response.data.ET_RETURN.TYPE !== "E") {
+                if (response.data.ET_RETURN.MSGTY !== "E") {
                     spinnerService.hide();
                     growl.success(response.data.ET_RETURN.MSGTX)
                     clearInputRegister();
@@ -33,7 +41,6 @@ app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", 
         }
 
         $scope.login = function (showLogIn) {
-            console.log(showLogIn)
             if(!showLogIn) {
                 $scope.showLogIn = true
                 return;
@@ -55,7 +62,6 @@ app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", 
                                 setTimeout(function () {
                                     growl.success(response.data.ET_RETURN[0].MSGTX)
                                 }, 10)
-                                console.log('response', response)
                                 utils.setData('response', response.data.persons)
                                 
                                 spinnerService.hide();
@@ -87,6 +93,7 @@ app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", 
         var clearInputRegister = function () {
             $scope.registerName = "";
             $scope.registerPass = "";
+            $scope.registerPassRepeat = "";
         }
 
         var goDetails = function () {

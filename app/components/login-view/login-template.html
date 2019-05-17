@@ -6,7 +6,7 @@
         <div class="wrap-all col-md-6">
             <div class='growl' growl></div>
             <div class="container-fluid" style="height: 100%; display:flex; flex-direction: column; justify-content: center;">
-                <div ng-if='showLogIn'>
+                <div ng-show='showLogIn'>
                     <div class="row text-center title" style="text-align: center;">
                         <h3 style="color: #fff;font-family: 'Merriweather', serif;">Log In</h3>
                     </div>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-                <div ng-if='!showLogIn'>
+                <div ng-show='!showLogIn'>
                     <div class="row text-center title" style="text-align: center;">
                         <h3 style="color: #fff;font-family: 'Merriweather', serif;">Sign Up</h3>
                     </div>
@@ -46,7 +46,7 @@
                             <label style="color: #fff;" class="control-label">Login: </label>
                         </div>
                         <div class="col-md-8">
-                            <form ng-submit="login()">
+                            <form>
                                 <div class="custom-input-group">
                                     <input class="custom-input" type="text" ng-model="registerName"> 
                                 </div>
@@ -58,17 +58,17 @@
                             <label style="color: #fff;" class="control-label">Password: </label>
                         </div>
                         <div class="col-md-8">
-                            <form ng-submit="login()">
+                            <form>
                                 <div class="custom-input-group">
                                     <input class="custom-input" type="password" ng-model="registerPass"> 
                                 </div>
                             </form>
                         </div>
                         <div class="col-md-3">
-                            <label style="color: #fff;" class="control-label">Repeat Password: </label>
+                            <label style="color: #fff;" class="control-label">Confirm Password: </label>
                         </div>
                         <div class="col-md-8">
-                            <form ng-submit="login()">
+                            <form>
                                 <div class="custom-input-group">
                                     <input class="custom-input" type="password" ng-model="registerPassRepeat"> 
                                 </div>
