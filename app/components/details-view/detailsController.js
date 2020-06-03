@@ -27,7 +27,7 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 				clearInterval(idleInterval)
 			}
 		}
-		var ctrl = function ($scope, userName) {
+		var ctrl = function ($scope, data) {
 			$scope.newPassword = '';
 			$scope.newName = ""
 
@@ -36,23 +36,34 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 				$scope.newName = ""
 			}
 
+			// var getData = function () {
+			// 	dataprovider.refreshData().then(function (response) {
+			// 		utils.setData('response', response.data.persons)
+			// 		$scope.passwords = response.data.persons[0].PASSWORDS;
+			// 	})
+			// }
+
 			$scope.send = function () {
 				spinnerService.show();
 				var payload = {
 					IS_LOGIN: {
-						NAME: userName.NAME
+						NAME: data.userName.NAME
 					},
 					SITE: $scope.newName,
 					PASSWORD: $scope.newPassword
 				}
-				
+				addToLocalPasswords = function() {
+					data.passwords.push({SITE: $scope.newName, PASSWORD: $scope.newPassword});
+				}
 				dataprovider.saveCardData(payload).then(function success(response) {
 					if (response.data.ET_RETURN) {
 						if (utils.checkReturn(response.data.ET_RETURN)) {
 							spinnerService.hide();
 							setTimeout(function () {
 								growl.success(response.data.ET_RETURN.MSGTX)
+								//closeModal();
 							})
+							addToLocalPasswords();
 							clearInputs();
 						} else {
 							spinnerService.hide();
@@ -74,7 +85,7 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 			keyboard: false,
 			backdrop: 'static',
 			resolve: {
-				userName : function (){ return $scope.empInfo }
+				data : function (){ return {passwords:$scope.passwords, userName: $scope.empInfo }}
 			}
 		};
 		
