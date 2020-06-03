@@ -1,12 +1,10 @@
-
-<div class="modal-header">
-    <h5 class="modal-title" style="font-size: 30px;">Potwierdzenie</h5>
+<div class="modal-header own-modal-header">
+    <span>Potwierdzenie</span>
 </div>
 <div class="modal-body">
-    <span class="glyphicon glyphicon glyphicon-question-sign" aria-hidden="true" style="font-size: 43px; vertical-align: middle;"></span>
-    <span style="font-size: 17px; display: inline-block; margin-bottom: 25px; vertical-align: sub;">{{message}}</span>
+    Czy na pewno chcesz się wylogować?
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary" ng-click="ok()">OK</button>
-    <button type="button" class="btn btn-warning" ng-click="cancel()">Anuluj</button>
+    <button style="border-radius: 0; color: #fff;" class="btn btn-success purple-btn" ng-click="ok()"><span>OK</span></button>
+    <button style="border-radius: 0; margin-left: 8px;" class="btn btn-danger red-btn" ng-click="cancel()"><span>Anuluj</span></button>
 </div>

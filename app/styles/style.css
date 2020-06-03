@@ -71,6 +71,23 @@ input {
     float: right;
 }
 
+.purple-btn {
+    background-color:#322348;
+    border-radius: 0;
+}
+
+.red-btn {
+    background-color: #FF0202;
+    border-radius: 0;
+}
+
+.purple-btn:hover, .purple-btn:active, .purple-btn:focus, .purple-btn:visited {
+    background-color: #322348 !important;
+}
+
+.red-btn:hover, .red-btn:active, .red-btn:focus, .red-btn:visited {
+    background-color: #FF0202 !important;
+}
 
 /* login-view */
 .input-group {
@@ -176,7 +193,7 @@ input {
     padding-left: 15px;
     margin-bottom: 10px;
     color: hsla(0, 0%, 100%, 1);
-    background-color: #583786;
+    background-color:#322348;
 }
 
 .own-modal .own-modal-body {
