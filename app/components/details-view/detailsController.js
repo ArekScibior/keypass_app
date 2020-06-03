@@ -38,7 +38,7 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 			// 	})
 			// }
 
-			$scope.send = function (props) {
+			$scope.send = function () {
 				//spinnerService.show();
 				var payload = {
 					IS_LOGIN: {
@@ -70,7 +70,7 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 		}
 		
 		var sendData = function(data) {
-			
+			spinnerService.show()
 			addToLocalPasswords = function() {
 				_.each(data.DATA, function(v) {
 					$scope.passwords.push({SITE: v.SITE, PASSWORD: v.PASSWORD});
@@ -86,6 +86,7 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 								addToLocalPasswords();
 							}
 						})
+						$scope.arrToRemove = [];
 						clearInputs();
 					} else {
 						spinnerService.hide();
@@ -98,24 +99,26 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 				}
 			})
 		}
+		$scope.confirmDelete = function() {
+			var payload = {
+				IS_LOGIN: {
+					NAME: $scope.empInfo.NAME
+				},
+				DATA: $scope.arrToRemove,
+				ACTIO: "DEL"
+			}
+			sendData(payload)
+		}
+		$scope.arrToRemove = []
 		$scope.removePassword = function(pass) {
 			var passInArr = _.find($scope.passwords, function(v) {
 				return v.SITE == pass.SITE && v.PASSWORD == pass.PASSWORD;
 			})
-			var arrToRemove = []
-			arrToRemove.push(pass)
+			$scope.arrToRemove.push(pass)
 			if (passInArr) {
 				var idx = _.findIndex($scope.passwords, passInArr)
 				$scope.passwords.splice(idx, 1)
 			}
-			var payload = {
-				IS_LOGIN: {
-					NAME: data.userName.NAME
-				},
-				DATA: props.PASSES,
-				ACTIO: props.ACTIO
-			}
-			$scope.send(payload)
 		}
 		$scope.addModal = function() {
 			$uibModal.open(modalOptions).result.then(function(data) {

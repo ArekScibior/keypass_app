@@ -53,7 +53,8 @@
                 </tbody>
             </table>
 
-            <button style="border-radius: 0; float: right;" ng-click="addModal()" class='btn btn-primary'>Dodaj nowy wpis</button>
+            <button style="border-radius: 0; float: left;" ng-click="addModal()" class='btn btn-primary'>Dodaj nowy wpis</button>
+            <button ng-disabled="arrToRemove.length == '0'" style="margin-left:20px ;border-radius: 0; float: left;" ng-click="confirmDelete()" class='btn btn-primary'>Zatwierdź usuwanie</button>
 
         </div>
         <div class="col-md-2"></div>
