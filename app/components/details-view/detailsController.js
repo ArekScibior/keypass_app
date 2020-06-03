@@ -31,15 +31,7 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 			$scope.newPassword = '';
 			$scope.newName = ""
 
-			// var getData = function () {
-			// 	dataprovider.refreshData().then(function (response) {
-			// 		utils.setData('response', response.data.persons)
-			// 		$scope.passwords = response.data.persons[0].PASSWORDS;
-			// 	})
-			// }
-
 			$scope.send = function () {
-				//spinnerService.show();
 				var payload = {
 					IS_LOGIN: {
 						NAME: data.userName.NAME
@@ -49,7 +41,11 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 					],
 					ACTIO: "ADD"
 				}
-				$uibModalInstance.close(payload)
+				if ($scope.newName == "" || $scope.newPassword == "") {
+					growl.error('Please, fill in all fields.')
+				} else {
+					$uibModalInstance.close(payload)
+				}
 			}
 
 		}
