@@ -1,6 +1,6 @@
-app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl", "modalConfirm", "modalAlert",
-	"dataprovider", "utils", "spinnerService", "$rootScope", "$routeParams", function ($uibModal, $scope, $location, growl, modalConfirm,
-		modalAlert, dataprovider, utils, spinnerService, $rootScope, $routeParams) {
+app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl", "modalConfirm",
+	"dataprovider", "utils", "spinnerService", "$rootScope", "$routeParams", function ($uibModal, $scope, $location, growl, modalConfirm, 
+		dataprovider, utils, spinnerService, $rootScope, $routeParams) {
 
 		if (!utils.checkLogin()) return; // przerwanie jeżeli nie jestem zalogowany
 		var idleTime = 0;

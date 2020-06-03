@@ -1,5 +1,5 @@
-app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", "modalAlert", "dataprovider", "utils", "spinnerService", "$routeParams", 'validator',
-    function ($uibModal, $scope, $location, growl, modalAlert, dataprovider, utils, spinnerService, $routeParams, validator) {
+app.controller("loginController", ["$uibModal", "$scope", "$location", "growl", "dataprovider", "utils", "spinnerService", "$routeParams", 'validator',
+    function ($uibModal, $scope, $location, growl, dataprovider, utils, spinnerService, $routeParams, validator) {
 
 
         $scope.userName = "";
