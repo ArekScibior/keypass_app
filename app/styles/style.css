@@ -89,6 +89,30 @@ input {
     background-color: #FF0202 !important;
 }
 
+
+/* own styles growlv2 */
+.alert-success {
+    background-color: #00CD00;
+    border-radius:0;
+    border-color: #00CD00;
+    color: #fff;
+}
+
+.alert-warning {
+    background-color: #FF6600;
+    border-radius:0;
+    border-color: #FF6600;
+    color: #fff;
+}
+
+.alert-danger, .alert-error {
+    background-color:#FF0202;
+    border-radius:0;
+    border-color: #FF0202;
+    color: #fff;
+}
+
+
 /* login-view */
 .input-group {
     padding: 0;
