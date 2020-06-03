@@ -129,7 +129,7 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 		}
 
 		$scope.logout = function () {
-			modalConfirm.modalConfirm("Czy na pewno chcesz się wylogować?").result.then(function ok() {
+			modalConfirm.modalConfirm("Are you sure you want to log out?").result.then(function ok() {
 				logout();
 			}, function cancel() {
 			});

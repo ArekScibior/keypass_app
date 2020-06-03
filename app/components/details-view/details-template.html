@@ -9,13 +9,13 @@
                     <div class="col-md-10"></div>
                     <div class="col-md-2">
                         <h2>
-                            <button ng-click="logout()" class="btn btn logout-btn btn-primary purple-btn">Wyloguj</button>
+                            <button ng-click="logout()" class="btn btn logout-btn btn-primary purple-btn">Log Out</button>
                         </h2>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-8" style="margin-top: -30px;">
-                        <h2>Użytkownik: {{empInfo.NAME}}</h2>
+                        <h2>User: {{empInfo.NAME}}</h2>
                     </div>
                     <div class="col-md-4">
                         <current-date></current-date> <!-- directive with date -->
@@ -31,8 +31,8 @@
                 <thead>
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nazwa</th>
-                    <th scope="col">Hasło</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Password</th>
                     <th scope="col"></th>
                     </tr>
                 </thead>
@@ -53,8 +53,8 @@
                 </tbody>
             </table>
 
-            <button style="float:left;" ng-click="addModal()" class='btn btn-primary purple-btn'>Dodaj nowy wpis</button>
-            <button ng-disabled="arrToRemove.length == '0'" style="float: left; margin-left:20px;" ng-click="confirmDelete()" class='btn btn-primary purple-btn'>Zatwierdź usuwanie</button>
+            <button style="float:left;" ng-click="addModal()" class='btn btn-primary purple-btn'>Add new entry</button>
+            <button ng-disabled="arrToRemove.length == '0'" style="float: left; margin-left:20px;" ng-click="confirmDelete()" class='btn btn-primary purple-btn'>Confirm delete</button>
 
         </div>
         <div class="col-md-2"></div>

@@ -11,7 +11,7 @@ app.directive('spinner', function () {
 				'<div class="spinner">',
 				'  <span us-spinner></span>',
 				'</div>',
-				'<div class="please-wait">Proszę czekać...</div>',
+				'<div class="please-wait">Please wait...</div>',
 			'<div/>'
 		].join(''),
 		controller: ["$scope", "spinnerService", function ($scope, spinnerService) {
