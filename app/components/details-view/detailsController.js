@@ -27,14 +27,9 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 				clearInterval(idleInterval)
 			}
 		}
-		var ctrl = function ($scope, data) {
+		var ctrl = function ($scope, $uibModalInstance, data) {
 			$scope.newPassword = '';
 			$scope.newName = ""
-
-			var clearInputs = function () {
-				$scope.newPassword = '';
-				$scope.newName = ""
-			}
 
 			// var getData = function () {
 			// 	dataprovider.refreshData().then(function (response) {
@@ -43,38 +38,18 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 			// 	})
 			// }
 
-			$scope.send = function () {
-				spinnerService.show();
+			$scope.send = function (props) {
+				//spinnerService.show();
 				var payload = {
 					IS_LOGIN: {
 						NAME: data.userName.NAME
 					},
-					SITE: $scope.newName,
-					PASSWORD: $scope.newPassword
+					DATA: [
+						{SITE: $scope.newName, PASSWORD: $scope.newPassword}
+					],
+					ACTIO: "ADD"
 				}
-				addToLocalPasswords = function() {
-					data.passwords.push({SITE: $scope.newName, PASSWORD: $scope.newPassword});
-				}
-				dataprovider.saveCardData(payload).then(function success(response) {
-					if (response.data.ET_RETURN) {
-						if (utils.checkReturn(response.data.ET_RETURN)) {
-							spinnerService.hide();
-							setTimeout(function () {
-								growl.success(response.data.ET_RETURN.MSGTX)
-								//closeModal();
-							})
-							addToLocalPasswords();
-							clearInputs();
-						} else {
-							spinnerService.hide();
-							growl.error(response.data.ET_RETURN.MSGTX)
-						}
-					} else {
-						spinnerService.hide();
-						growl.error('Wystapił nieoczekiwany błąd.')
-						return;
-					}
-				})
+				$uibModalInstance.close(payload)
 			}
 
 		}
@@ -89,13 +64,64 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 			}
 		};
 		
-		$scope.addModal = function() {
-			return $uibModal.open(modalOptions).result;
+		var clearInputs = function () {
+			$scope.newPassword = '';
+			$scope.newName = ""
 		}
-
-		$scope.clearInput = function () {
-			$scope.name = "";
-			$scope.pass = "";
+		
+		var sendData = function(data) {
+			
+			addToLocalPasswords = function() {
+				_.each(data.DATA, function(v) {
+					$scope.passwords.push({SITE: v.SITE, PASSWORD: v.PASSWORD});
+				})
+			}
+			dataprovider.saveCardData(data).then(function success(response) {
+				if (response.data.ET_RETURN) {
+					if (utils.checkReturn(response.data.ET_RETURN)) {
+						spinnerService.hide();
+						setTimeout(function () {
+							growl.success(response.data.ET_RETURN.MSGTX)
+							if (data.ACTIO !== "DEL") {
+								addToLocalPasswords();
+							}
+						})
+						clearInputs();
+					} else {
+						spinnerService.hide();
+						growl.error(response.data.ET_RETURN.MSGTX)
+					}
+				} else {
+					spinnerService.hide();
+					growl.error('Wystapił nieoczekiwany błąd.')
+					return;
+				}
+			})
+		}
+		$scope.removePassword = function(pass) {
+			var passInArr = _.find($scope.passwords, function(v) {
+				return v.SITE == pass.SITE && v.PASSWORD == pass.PASSWORD;
+			})
+			var arrToRemove = []
+			arrToRemove.push(pass)
+			if (passInArr) {
+				var idx = _.findIndex($scope.passwords, passInArr)
+				$scope.passwords.splice(idx, 1)
+			}
+			var payload = {
+				IS_LOGIN: {
+					NAME: data.userName.NAME
+				},
+				DATA: props.PASSES,
+				ACTIO: props.ACTIO
+			}
+			$scope.send(payload)
+		}
+		$scope.addModal = function() {
+			$uibModal.open(modalOptions).result.then(function(data) {
+				sendData(data)
+			}, function() {
+			})
 		}
 
 		//logout

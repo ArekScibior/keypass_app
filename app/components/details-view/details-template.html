@@ -33,6 +33,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Nazwa</th>
                     <th scope="col">Hasło</th>
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,10 +41,13 @@
                         <th scope="row">{{$index + 1}}</th>
                         <td>{{pass.SITE}}</td>
                         <td ng-if="pass.visible != true">********&nbsp;&nbsp;&nbsp;
-                            <span ng-click="pass.visible = true;" class="glyphicon glyphicon glyphicon-eye-open"></span>
+                            <span ng-click="pass.visible = true;" class="glyphicon glyphicon-eye-open"></span>
                         </td>
                         <td ng-if="pass.visible == true;">{{pass.PASSWORD}}&nbsp;&nbsp;&nbsp;
-                            <span ng-click="pass.visible = false;" class="glyphicon glyphicon glyphicon-eye-close"></span>
+                            <span ng-click="pass.visible = false;" class="glyphicon glyphicon-eye-close"></span>
+                        </td>
+                        <td>
+                            <span ng-click="removePassword(pass)" class="glyphicon glyphicon-remove"></span>
                         </td>
                     </tr>
                 </tbody>
