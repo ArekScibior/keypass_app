@@ -7,14 +7,16 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 		var response = utils.getData('response');
 		$scope.empInfo = response[0].ES_HEADER;
 		$scope.passwords = response[0].PASSWORDS;
-		$scope.index = 0;
 		var initPasswords = response[0].PASSWORDS.slice();
+		
+		$scope.index = 0;
+		
 		$scope.isInit = false;
+		$scope.allVisible = false;
 
 		$scope.arrToRemove = []
 		$scope.arrToAdd = []
 		
-
 		//Increment the idle time counter every minute.
 		var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
 
@@ -181,6 +183,41 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 			}, function() {
 			})
 		}
+
+		$scope.setAllVisiblePass = function() {
+			$scope.allVisible = !$scope.allVisible
+			_.each($scope.passwords, function(v) {
+				v.visible = $scope.allVisible;
+			})
+		}
+		$scope.export = function() {
+			if (!_.isEmpty($scope.passwords)) {
+				var xml = '<html><style>.txt {mso-number-format:"\@";}</style>';
+				var createTable = function() {
+					var idx = 0;
+					var table = '<tr><th>#</th><th>Name</th><th>Password</th></tr>'
+					_.each($scope.passwords, function(pass) {
+						idx++
+						table += '<tr><th scope="row">' + idx + '</th>' 
+						+ '<td>' + pass.SITE + '</td>'
+						+ '<td>' + pass.PASSWORD + '</td></tr>'	
+					})
+					return table;
+				}
+
+				xml = xml + '<table border=1>'
+				+ createTable()
+				+ '</table>';
+				xml += '</html>';
+
+				var filename = 'passwords_' + moment().format('YYYY.MM.DD HH:mm:ss') + '.xls';
+				var blob = new Blob([xml], {type: "text/plain;charset=utf-8"});
+				saveAs(blob, filename);
+
+			} else {
+				growl.error('Brak danych do zapisania');
+			}
+		};
 
 		//logout
 		var logout = function () {
