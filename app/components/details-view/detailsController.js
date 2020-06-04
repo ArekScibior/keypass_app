@@ -80,9 +80,10 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 							growl.success(response.data.ET_RETURN.MSGTX)
 							if (data.ACTIO !== "DEL") {
 								addToLocalPasswords();
+							} else {
+								$scope.arrToRemove = [];
 							}
 						})
-						$scope.arrToRemove = [];
 						clearInputs();
 					} else {
 						spinnerService.hide();
