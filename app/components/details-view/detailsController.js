@@ -215,7 +215,7 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 				saveAs(blob, filename);
 
 			} else {
-				growl.error('Brak danych do zapisania');
+				growl.error('No data for export');
 			}
 		};
 
