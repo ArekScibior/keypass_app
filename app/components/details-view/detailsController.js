@@ -95,6 +95,14 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 				}
 			})
 		}
+
+		$scope.restore = function () {
+			_.each($scope.arrToRemove, function(v) {
+				$scope.passwords.push(v)
+			})
+			$scope.arrToRemove = [];
+		}
+
 		$scope.confirmDelete = function() {
 			var payload = {
 				IS_LOGIN: {

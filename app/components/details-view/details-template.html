@@ -55,6 +55,7 @@
 
             <button style="float:left;" ng-click="addModal()" class='btn btn-primary purple-btn'>Add new entry</button>
             <button ng-disabled="arrToRemove.length == '0'" style="float: left; margin-left:20px;" ng-click="confirmDelete()" class='btn btn-primary purple-btn'>Confirm delete</button>
+            <button ng-disabled="arrToRemove.length == '0'" style="float: right;" ng-click="restore()" class='btn btn-primary purple-btn'>Restore</button>
 
         </div>
         <div class="col-md-2"></div>
