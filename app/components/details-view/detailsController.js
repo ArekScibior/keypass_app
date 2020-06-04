@@ -188,9 +188,14 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 		}
 
 		$scope.logout = function () {
-			modalConfirm.modalConfirm("Are you sure you want to log out?").result.then(function ok() {
-				logout();
-			}, function cancel() {
-			});
+			if (!_.isEmpty($scope.arrToAdd) || !_.isEmpty($scope.arrToRemove)) {
+				modalConfirm.modalConfirm("You have unsaved operation. Are you sure you want to logout?").result.then(function ok() {
+					logout();
+				}, function cancel() {});
+			} else {
+				modalConfirm.modalConfirm("Are you sure you want to log out?").result.then(function ok() {
+					logout();
+				}, function cancel() {});
+			}
 		}
 	}])
