@@ -33,8 +33,8 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Password 
-                        <span ng-if="!allVisible" ng-click="setAllVisiblePass()" class="glyphicon glyphicon-eye-open"></span>
-                        <span ng-if="allVisible" ng-click="setAllVisiblePass()" class="glyphicon glyphicon-eye-close"></span>
+                        <span ng-if="!allVisible" ng-click="setAllVisiblePass()" class="glyphicon glyphicon-eye-open" style="cursor:pointer;"></span>
+                        <span ng-if="allVisible" ng-click="setAllVisiblePass()" class="glyphicon glyphicon-eye-close" style="cursor:pointer;"></span>
                     </th>
                     <th scope="col"></th>
                     </tr>
@@ -44,13 +44,13 @@
                         <th scope="row">{{$index + 1}}</th>
                         <td>{{pass.SITE}}</td>
                         <td ng-if="pass.visible != true">********&nbsp;&nbsp;&nbsp;
-                            <span ng-click="pass.visible = true;" class="glyphicon glyphicon-eye-open"></span>
+                            <span ng-click="pass.visible = true;" class="glyphicon glyphicon-eye-open" style="cursor:pointer;"></span>
                         </td>
                         <td ng-if="pass.visible == true;">{{pass.PASSWORD}}&nbsp;&nbsp;&nbsp;
-                            <span ng-click="pass.visible = false;" class="glyphicon glyphicon-eye-close"></span>
+                            <span ng-click="pass.visible = false;" class="glyphicon glyphicon-eye-close" style="cursor:pointer;"></span>
                         </td>
                         <td>
-                            <span ng-click="removePassword(pass)" class="glyphicon glyphicon-remove"></span>
+                            <span ng-click="removePassword(pass)" class="glyphicon glyphicon-remove" style="cursor:pointer;"></span>
                         </td>
                     </tr>
                 </tbody>
