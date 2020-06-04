@@ -8,6 +8,12 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 		$scope.empInfo = response[0].ES_HEADER;
 		$scope.passwords = response[0].PASSWORDS;
 		$scope.index = 0;
+		var initPasswords = response[0].PASSWORDS.slice();
+		$scope.isInit = false;
+
+		$scope.arrToRemove = []
+		$scope.arrToAdd = []
+		
 
 		//Increment the idle time counter every minute.
 		var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
@@ -32,19 +38,11 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 			$scope.newName = ""
 
 			$scope.send = function () {
-				var payload = {
-					IS_LOGIN: {
-						NAME: data.userName.NAME
-					},
-					DATA: [
-						{SITE: $scope.newName, PASSWORD: $scope.newPassword}
-					],
-					ACTIO: "ADD"
-				}
+				var objToAdd = {SITE: $scope.newName, PASSWORD: $scope.newPassword}
 				if ($scope.newName == "" || $scope.newPassword == "") {
 					growl.error('Please, fill in all fields.')
 				} else {
-					$uibModalInstance.close(payload)
+					$uibModalInstance.close(objToAdd)
 				}
 			}
 
@@ -65,21 +63,28 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 			$scope.newName = ""
 		}
 		
+		var getData = function() {
+			var payload = {IS_LOGIN: $scope.empInfo}
+			dataprovider.getCardData(payload).then(function (response) {
+				if (response.data.ET_RETURN) {
+					if (utils.checkReturn(response.data.ET_RETURN[0])) {
+						$scope.passwords = response.data.persons[0].PASSWORDS
+						initPasswords = response.data.persons[0].PASSWORDS.slice();
+					}
+				}
+			})
+		}
 		var sendData = function(data) {
 			spinnerService.show()
-			addToLocalPasswords = function() {
-				_.each(data.DATA, function(v) {
-					$scope.passwords.push({SITE: v.SITE, PASSWORD: v.PASSWORD});
-				})
-			}
 			dataprovider.saveCardData(data).then(function success(response) {
 				if (response.data.ET_RETURN) {
 					if (utils.checkReturn(response.data.ET_RETURN)) {
 						spinnerService.hide();
 						setTimeout(function () {
 							growl.success(response.data.ET_RETURN.MSGTX)
-							if (data.ACTIO !== "DEL") {
-								addToLocalPasswords();
+							getData()
+							if (data.ACTIO == "ADD") {
+								$scope.arrToAdd = [];
 							} else {
 								$scope.arrToRemove = [];
 							}
@@ -96,6 +101,31 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 				}
 			})
 		}
+
+		$scope.$watch('passwords', function(nv, ov) {
+			_.each(nv, function(v) {
+				_.omit(v, '$$hashKey')
+			})
+			_.each(initPasswords, function(v) {
+				_.omit(v, '$$hashKey')
+			})
+
+			//sprawdzenie czy hasła do usunięcia pochodza z serwera czy sa lokalne.
+			var isInInit = _.some($scope.arrToRemove, function(v) {
+				return _.contains(initPasswords, v)
+			})
+			//jeżeli są lokalne i nie ma ich w początkowych hasłach z serwera ustawiamy tablicę na pustą.
+			if (!isInInit) {
+				$scope.arrToRemove = [];
+			}
+			if (JSON.stringify(nv)==JSON.stringify(initPasswords)) {
+				$scope.isInit = true;
+				$scope.arrToRemove = [];
+				$scope.arrToAdd = [];
+			} else {
+				$scope.isInit = false;
+			}
+		},true)
 
 		$scope.restore = function () {
 			_.each($scope.arrToRemove, function(v) {
@@ -114,20 +144,40 @@ app.controller("detailsController", ["$uibModal", "$scope", "$location", "growl"
 			}
 			sendData(payload)
 		}
-		$scope.arrToRemove = []
+
+		$scope.confirmAdd = function() {
+			var payload = {
+				IS_LOGIN: {
+					NAME: $scope.empInfo.NAME
+				},
+				DATA: $scope.arrToAdd,
+				ACTIO: "ADD"
+			}
+			sendData(payload)
+		}
+
 		$scope.removePassword = function(pass) {
 			var passInArr = _.find($scope.passwords, function(v) {
 				return v.SITE == pass.SITE && v.PASSWORD == pass.PASSWORD;
 			})
 			$scope.arrToRemove.push(pass)
+
+			//usunięcie lokalnych haseł z tablicy do dodania jezeli to hasło zostało usunięte
+			var removeFromAdd = _.contains($scope.arrToAdd, pass)
+			if (removeFromAdd) {
+				var idx = _.findIndex($scope.arrToAdd, pass)
+				$scope.arrToAdd.splice(idx, 1)
+			}
+
 			if (passInArr) {
 				var idx = _.findIndex($scope.passwords, passInArr)
 				$scope.passwords.splice(idx, 1)
 			}
 		}
-		$scope.addModal = function() {
+		$scope.addPassword = function() {
 			$uibModal.open(modalOptions).result.then(function(data) {
-				sendData(data)
+				$scope.arrToAdd.push(data)
+				$scope.passwords.push(data)
 			}, function() {
 			})
 		}
