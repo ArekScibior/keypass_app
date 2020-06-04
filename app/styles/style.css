@@ -7,7 +7,8 @@
     font-family: 'Merriweather', serif;
 }
 html {
-    background: linear-gradient(to top, #FC354C 0%, #0ABFBC 100%);
+    background: linear-gradient(to top, #FFFAFA 0%, #322348 100%);
+    
     height: 100vh;
 }
 /* body {
@@ -50,7 +51,9 @@ input {
 .details-wrap-all {
     /* margin-top: 20px; */
     height: 100%;
-    background: linear-gradient(to top, #B7F8DB 0%, #50A7C2 100%);
+    /* background: linear-gradient(to top, #B7F8DB 0%, #50A7C2 100%); */
+    background: linear-gradient(to top,  #DBDBDB 0%, #A0A0A0 100%);
+   
 }
 
 .container-fluid {
