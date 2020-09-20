@@ -1,4 +1,11 @@
-<div class='col-md-12 container'>
+<div class='col-md-6 container'>
+    <div style='height: 400px; overflow-y: scroll;'>
+        <ul>
+            <li ng-repeat="file in filesToDisplay">{{file.fileName}}</li>
+        </ul>
+    </div>
+</div>
+<div class='col-md-6 container'>
     <div class="square">
         <div class="login-view col-md-6">
         
@@ -6,6 +13,24 @@
         <div class="wrap-all col-md-6">
             <div class='growl' growl></div>
             <div class="container-fluid" style="height: 100%; display:flex; flex-direction: column; justify-content: center;">
+                <div class="row" style="margin-bottom: 17px">
+                    <div class="col-md-offset-1 col-md-10">
+                        <div class="row information-row xss-information-row">
+                            <label class="col-md-4 control-label">
+                                Załącznik:
+                            </label>
+                            <div class="col-md-8 input">
+                                <input class = "form-control"
+                                    type     = "file"
+                                    id = 'files'
+                                    multiple>
+                                </input>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <button ng-click="onAddAttachment()">Dodaj</button>
                 <div ng-show='showLogIn'>
                     <div class="row text-center title" style="text-align: center;">
                         <h3 style="color: #fff;font-family: 'Merriweather', serif;">Log In</h3>
